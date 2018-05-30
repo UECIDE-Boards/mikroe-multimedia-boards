@@ -1,5 +1,5 @@
 variant=mikroe-mikromedia-795
-description=MikroElektronika PIC32 mikromedia Plus for PIC32MX7
+description=MikroMedia (MX795)
 group=MikroElektronika
 platform=pic32
 board=_BOARD_MIKROE_MIKROMEDIA_

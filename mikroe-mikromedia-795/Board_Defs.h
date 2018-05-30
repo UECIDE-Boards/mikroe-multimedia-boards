@@ -53,10 +53,11 @@
 ** refer to periperhals on the board generically.
 */
 
-#define	_BOARD_NAME_	"100 Pin Default"
+#define	_BOARD_NAME_	"mikroe-mikromedia-795"
 
 /* Define the peripherals available on the board.
 */
+//#define MMC_SS			  	6 //RA6
 #define	NUM_DIGITAL_PINS	112
 #define	NUM_ANALOG_PINS		16
 #define NUM_OC_PINS			5
@@ -64,16 +65,16 @@
 #define	NUM_TCK_PINS		5
 #define	NUM_INT_PINS		5
 
-#define	NUM_SERIAL_PORTS	2
+#define	NUM_SERIAL_PORTS	4//2
 #define	NUM_SPI_PORTS		1
-#define	NUM_I2C_PORTS		1
+#define	NUM_I2C_PORTS		2//1
 
 #define NUM_DSPI_PORTS		1
 #define NUM_DTWI_PORTS		2
 
 /* Define I/O devices on the board.
 */
-#define	NUM_LED				1
+#define	NUM_LED				3
 #define NUM_BTN				0
 #define	NUM_SWT				0
 #define NUM_SERVO			0
@@ -84,7 +85,10 @@
 
 /* Define the pin numbers for the LEDs
 */
-#define	PIN_LED1	13
+#define	PIN_LED1		13 // NOT ON THIS BOARD
+#define PIN_LED_RED		49 //RD1 49
+#define PIN_LED_GREEN	50 //RD2 50
+#define PIN_LED_BLUE	51 //RD3 51 see Board_data
 
 /* ------------------------------------------------------------ */
 /*					Button Declarations							*/
@@ -147,10 +151,10 @@
 ** the default SPI port as it's pin numbers stay constant on all
 ** devices.
 */
-const static uint8_t SS   = 105;		// PIC32 SS2
-const static uint8_t MOSI =	104;		// PIC32 SDO2
-const static uint8_t MISO = 103;		// PIC32 SDI2
-const static uint8_t SCK  = 102;		// PIC32 SCK2
+const static uint8_t SS   = 105;		// PIC32 SS1 6
+const static uint8_t MOSI =	104;		// PIC32 SDO1 48
+const static uint8_t MISO = 103;		// PIC32 SDI1 36
+const static uint8_t SCK  = 102;		// PIC32 SCK1 58
 
 /* The Digilent DSPI library uses these ports.
 */
@@ -163,23 +167,24 @@ const static uint8_t SCK  = 102;		// PIC32 SCK2
 ** used to map an analog pin number to the corresponding digital
 ** pin number.
 */
-#define	A0		16
-#define	A1		17
-#define A2		18
-#define A3		19
-#define A4		20
-#define A5		21
-#define A6		22
-#define A7		23
-#define A8		24
-#define A9		25
-#define A10		26
-#define A11		27
-#define	A12		28
-#define	A13		29
-#define	A14		30
-#define	A15		31
-
+/*
+#define	A0		17
+#define	A1		38
+#define A2		58
+#define A3		59
+#define A4		60
+#define A5		61
+#define A6		91
+#define A7		92
+//#define A8		
+#define A9		28
+#define A10		29
+//#define A11		27
+//#define	A12		28
+//#define	A13		29
+#define	A14		66
+#define	A15		67
+*/
 /* ------------------------------------------------------------ */
 /*					Change Notice Pins							*/
 /* ------------------------------------------------------------ */
@@ -213,7 +218,7 @@ const static uint8_t SCK  = 102;		// PIC32 SCK2
 /*					Pin Mapping Macros							*/
 /* ------------------------------------------------------------ */
 /* This section contains the definitions for pin mapping macros that
-/* are being redefined for this board variant.
+   are being redefined for this board variant.
 */
 
 // This board variant doesn't need to change any of the default
@@ -289,7 +294,7 @@ extern const uint8_t	analog_pin_to_channel_PGM[];
 #define	_SER0_IPL		_UART1_IPL_IPC
 #define	_SER0_SPL		_UART1_SPL_IPC
 
-/* Serial port 1 uses UART2
+/* Serial port 1 uses UART2 Tx pin 50, RF5, Rx pin 49, RF4
 */
 #define	_SER1_BASE		_UART2_BASE_ADDRESS
 #define	_SER1_IRQ		_UART2_ERR_IRQ
@@ -298,6 +303,23 @@ extern const uint8_t	analog_pin_to_channel_PGM[];
 #define	_SER1_IPL		_UART2_IPL_IPC
 #define	_SER1_SPL		_UART2_SPL_IPC
 
+/* Serial port 2 uses UART3 Tx pin 12, RG8, Rx pin 11, RG7
+*/
+#define	_SER2_BASE		_UART3_BASE_ADDRESS
+#define	_SER2_IRQ		_UART3_ERR_IRQ
+#define	_SER2_VECTOR	_UART_3_VECTOR
+#define	_SER2_IPL_ISR	_UART3_IPL_ISR
+#define	_SER2_IPL		_UART3_IPL_IPC
+#define	_SER2_SPL		_UART3_SPL_IPC
+
+/* Serial port 3 uses UART4 Tx pin 48, RD15, Rx pin 47, RD14
+*/
+#define	_SER3_BASE		_UART4_BASE_ADDRESS
+#define	_SER3_IRQ		_UART4_ERR_IRQ
+#define	_SER3_VECTOR	_UART_4_VECTOR
+#define	_SER3_IPL_ISR	_UART4_IPL_ISR
+#define	_SER3_IPL		_UART4_IPL_IPC
+#define	_SER3_SPL		_UART4_SPL_IPC
 /* ------------------------------------------------------------ */
 /*					SPI Port Declarations						*/
 /* ------------------------------------------------------------ */
@@ -306,25 +328,25 @@ extern const uint8_t	analog_pin_to_channel_PGM[];
 ** same on all PIC32 devices. The pins for SPI1 move around,
 ** and the ports beyond SPI2 aren't defined on some devices.
 */
-#define	_SPI_BASE		_SPI2_BASE_ADDRESS
-#define _SPI_ERR_IRQ	_SPI2_ERR_IRQ
-#define	_SPI_RX_IRQ		_SPI2_RX_IRQ
-#define	_SPI_TX_IRQ		_SPI2_TX_IRQ
-#define	_SPI_VECTOR		_SPI_2_VECTOR
-#define	_SPI_IPL_ISR	_SPI2_IPL_ISR
-#define	_SPI_IPL		_SPI2_IPL_IPC
-#define	_SPI_SPL		_SPI2_SPL_IPC
+#define    _SPI_BASE       _SPI1_BASE_ADDRESS
+#define    _SPI_ERR_IRQ    _SPI1_ERR_IRQ
+#define    _SPI_RX_IRQ     _SPI1_RX_IRQ
+#define    _SPI_TX_IRQ     _SPI1_TX_IRQ
+#define    _SPI_VECTOR     _SPI_1_VECTOR
+#define    _SPI_IPL_ISR    _SPI1_IPL_ISR
+#define    _SPI_IPL        _SPI1_IPL_IPC
+#define    _SPI_SPL        _SPI1_SPL_IPC
 
 /* The Digilent DSPI library uses the same port.
 */
-#define	_DSPI0_BASE			_SPI2_BASE_ADDRESS
-#define	_DSPI0_ERR_IRQ		_SPI2_ERR_IRQ
-#define	_DSPI0_RX_IRQ		_SPI2_RX_IRQ
-#define	_DSPI0_TX_IRQ		_SPI2_TX_IRQ
-#define	_DSPI0_VECTOR		_SPI_2_VECTOR
-#define	_DSPI0_IPL_ISR		_SPI2_IPL_ISR
-#define	_DSPI0_IPL			_SPI2_IPL_IPC
-#define	_DSPI0_SPL			_SPI2_SPL_IPC
+#define    _DSPI0_BASE         _SPI1_BASE_ADDRESS
+#define    _DSPI0_ERR_IRQ      _SPI1_ERR_IRQ
+#define    _DSPI0_RX_IRQ       _SPI1_RX_IRQ
+#define    _DSPI0_TX_IRQ       _SPI1_TX_IRQ
+#define    _DSPI0_VECTOR       _SPI_1_VECTOR
+#define    _DSPI0_IPL_ISR      _SPI1_IPL_ISR
+#define    _DSPI0_IPL          _SPI1_IPL_IPC
+#define    _DSPI0_SPL          _SPI1_SPL_IPC
 
 /* ------------------------------------------------------------ */
 /*					I2C Port Declarations						*/
@@ -335,36 +357,49 @@ extern const uint8_t	analog_pin_to_channel_PGM[];
 ** JP6/JP8 set appropriately (RG2/RG3 position) to access the I2C
 ** signals.
 */
-#define	_TWI_BASE		_I2C1_BASE_ADDRESS
-#define	_TWI_BUS_IRQ	_I2C1_BUS_IRQ
-#define	_TWI_SLV_IRQ	_I2C1_SLAVE_IRQ
-#define	_TWI_MST_IRQ	_I2C1_MASTER_IRQ
-#define	_TWI_VECTOR		_I2C_1_VECTOR
-#define	_TWI_IPL_ISR	_I2C1_IPL_ISR
-#define _TWI_IPL		_I2C1_IPL_IPC
-#define	_TWI_SPL		_I2C1_SPL_IPC
+#define	_TWI_BASE		_I2C2_BASE_ADDRESS
+#define	_TWI_BUS_IRQ	_I2C2_BUS_IRQ
+#define	_TWI_SLV_IRQ	_I2C2_SLAVE_IRQ
+#define	_TWI_MST_IRQ	_I2C2_MASTER_IRQ
+#define	_TWI_VECTOR		_I2C_2_VECTOR
+#define	_TWI_IPL_ISR	_I2C2_IPL_ISR
+#define _TWI_IPL		_I2C2_IPL_IPC
+#define	_TWI_SPL		_I2C2_SPL_IPC
 
-/* Declarations for Digilent DTWI library.
-**		DTWI0 is on A4/A5 (see above comment).
-**		DTWI1 is on digital pins 38 & 39.
+/* Declarations for Digilent DTWI library. DTWI0 and DTWI1 are
+** connected to the 2x4 I2C daisy chain connectors. The pins for the
+** other DTWI are on Pmod connectors.
+**		DTWI0 is on J7, has jumperable current mirrors for pull-ups
+**		DTWI1 is on J8, has fixed pullups and EEPROM
+**		DTWI2 is on JE (pins 2&3), digital pins 33 (SCL) & 34 (SDA)
+**		DTWI3 is on JF (pins 2&3), digital pins 41 (SCL) & 42 (SDA)
 */
-#define	_DTWI0_BASE		_I2C1_BASE_ADDRESS
-#define	_DTWI0_BUS_IRQ	_I2C1_BUS_IRQ
-#define	_DTWI0_SLV_IRQ	_I2C1_SLAVE_IRQ
-#define	_DTWI0_MST_IRQ	_I2C1_MASTER_IRQ
-#define	_DTWI0_VECTOR	_I2C_1_VECTOR
-#define	_DTWI0_IPL_ISR	_I2C1_IPL_ISR
-#define	_DTWI0_IPL		_I2C1_IPL_IPC
-#define	_DTWI0_SPL		_I2C1_SPL_IPC
+#define	_DTWI0_BASE		_I2C2_BASE_ADDRESS
+#define	_DTWI0_BUS_IRQ	_I2C2_BUS_IRQ
+#define	_DTWI0_VECTOR	_I2C_2_VECTOR
+#define	_DTWI0_IPL_ISR	_I2C2_IPL_ISR
+#define	_DTWI0_IPL		_I2C2_IPL_IPC
+#define	_DTWI0_SPL		_I2C2_SPL_IPC
+#define _DTWI0_SCL_PIN  58 
+#define _DTWI0_SDA_PIN  59
 
-#define	_DTWI1_BASE		_I2C2_BASE_ADDRESS
-#define	_DTWI1_BUS_IRQ	_I2C2_BUS_IRQ
-#define	_DTWI1_SLV_IRQ	_I2C2_SLAVE_IRQ
-#define	_DTWI1_MST_IRQ	_I2C2_MASTER_IRQ
-#define	_DTWI1_VECTOR	_I2C_2_VECTOR
-#define	_DTWI1_IPL_ISR	_I2C2_IPL_ISR
-#define	_DTWI1_IPL		_I2C2_IPL_IPC
-#define	_DTWI1_SPL		_I2C2_SPL_IPC
+#define	_DTWI1_BASE		_I2C1_BASE_ADDRESS
+#define	_DTWI1_BUS_IRQ	_I2C1_BUS_IRQ
+#define	_DTWI1_VECTOR	_I2C_1_VECTOR
+#define	_DTWI1_IPL_ISR	_I2C1_IPL_ISR
+#define	_DTWI1_IPL		_I2C1_IPL_IPC
+#define	_DTWI1_SPL		_I2C1_SPL_IPC
+#define _DTWI1_SCL_PIN  55 
+#define _DTWI1_SDA_PIN  56
+
+#define	_DTWI2_BASE		_I2C3_BASE_ADDRESS
+#define	_DTWI2_BUS_IRQ	_I2C3_BUS_IRQ
+#define	_DTWI2_VECTOR	_I2C_3_VECTOR
+#define	_DTWI2_IPL_ISR	_I2C3_IPL_ISR
+#define	_DTWI2_IPL		_I2C3_IPL_IPC
+#define	_DTWI2_SPL		_I2C3_SPL_IPC
+#define _DTWI2_SCL_PIN  33 
+#define _DTWI2_SDA_PIN  34
 
 /* ------------------------------------------------------------ */
 /*					A/D Converter Declarations					*/

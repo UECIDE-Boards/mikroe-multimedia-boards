@@ -1,5 +1,5 @@
 variant=mikroe-multimedia
-description=MikroElektronika PIC32 Multimedia Board
+description=MultiMedia (MX460)
 group=MikroElektronika
 platform=pic32
 board=_BOARD_MIKROE_MULTIMEDIA_
