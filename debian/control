@@ -1,0 +1,34 @@
+Source: mikroe-multimedia-boards
+Section: libraries
+XBSC-Family: pic32
+Priority: extra
+Maintainer: Matt Jenkins <matt@majenko.co.uk>
+Build-Depends: debhelper (>= 8.0.0)
+Standards-Version: 3.9.4
+
+Package: mikroe-mikromedia
+Section: boards
+Architecture: all
+XBSC-Group: MikroElektronika
+XBSC-Subgroup: Multimedia
+Depends: chpikit
+Description: MikroMedia (MX460)
+
+Package: mikroe-mikromedia-795
+Section: boards
+Architecture: all
+XBSC-Group: MikroElektronika
+XBSC-Subgroup: Multimedia
+Depends: chipkit
+Description: MikroMedia (MX795)
+
+Package: mikroe-multimedia
+Section: boards
+Architecture: all
+XBSC-Group: MikroElektronika
+XBSC-Subgroup: Multimedia
+Depends: chipkit
+Description: MultiMedia (460)
+
+
+
