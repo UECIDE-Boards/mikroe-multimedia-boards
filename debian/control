@@ -1,8 +1,9 @@
 Source: mikroe-multimedia-boards
 Section: main
 XBSC-Family: pic32
-XBSC-Group: MikroElektronika
-XBSC-Subgroup: Multimedia
+XBSC-Group: Boards
+XBSC-SubGroup: MikroElektronika
+XBSC-SubSubgroup: Multimedia
 Priority: extra
 Maintainer: Matt Jenkins <matt@majenko.co.uk>
 Build-Depends: debhelper (>= 8.0.0)
