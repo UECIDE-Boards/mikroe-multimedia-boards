@@ -22,7 +22,7 @@ Description: MikroMedia (MX795)
 Package: mikroe-multimedia
 Architecture: all
 Depends: chipkit
-Description: MultiMedia (460)
+Description: MultiMedia (MX460)
 
 
 
